@@ -14,16 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.spring.tutoriasEDU.Curso.CursoDao;
 import com.spring.tutoriasEDU.tutores.Tutor;
 import com.spring.tutoriasEDU.tutores.TutorDAO;
-
-
-
-
-
-
 @Controller
 public class PlanController {	
-	
-	
 	@Autowired
 	PlanDao planDao;
 	
@@ -35,20 +27,16 @@ public class PlanController {
 	
 	@GetMapping("/plan")
 	public ModelAndView tutorias() {
-
 		ModelAndView model = new ModelAndView();
 		model.setViewName("planes");
-		
 		List<Plan> planes = (List<Plan>) planDao.findAll();
+		model.addObject("plan", new Plan());
+		model.addObject("cursos", cursoDao.findAll());
+		model.addObject("tutores", tutorDao.getTutoresNoEnlazados());
 		model.addObject("planes", planes);
-		
+
 		return model;
 	}
-	
-
-	
-	
-	
 	@GetMapping("/plan/{id}")
 	public ModelAndView tutoria(@PathVariable long id) {
 		
@@ -59,12 +47,7 @@ public class PlanController {
 		model.addObject("plan", plan);
 		
 		return model;
-	}	
-	
-	
-	
-	
-	
+	}
 	@GetMapping("/plan/add")
 	public ModelAndView addPlan() {
 				
@@ -78,11 +61,7 @@ public class PlanController {
 		model.addObject("tutores", tutorDao.getTutoresNoEnlazados());
 		
 		return model;
-	}	
-
-	
-
-	
+	}
 	@GetMapping("/plan/edit/{id}")
 	public ModelAndView editPlan(@PathVariable long id) {
 				
@@ -101,11 +80,6 @@ public class PlanController {
 		
 		return model;
 	}	
-	
-	
-	
-	
-	
 	@GetMapping("/plan/del/{id}")
 	public ModelAndView delPlan(@PathVariable long id) {
 				
@@ -116,11 +90,6 @@ public class PlanController {
 		
 		return model;
 	}	
-	
-	
-	
-	
-	
 	@GetMapping("/plan/tutor/del/{idPlan}")
 	public ModelAndView eliminarTutoriaTutor(@PathVariable long idPlan) {
 		
@@ -139,12 +108,6 @@ public class PlanController {
 		
 		return model;
 	}
-	
-	
-	
-	
-	
-	
 	
 	@PostMapping("/plan/save")
 	public ModelAndView formTutoria(@ModelAttribute Plan plan) {

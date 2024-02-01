@@ -18,6 +18,10 @@ insert into tutor (nombre,email,plan) values ('Pedro','pedro@educastur.org',5);
 insert into tutor (nombre,email,plan) values ('Lucia','lucia@educastur.org',6);
 insert into actividad (obligatoria, nombre, descripcion) values (true, 'Actividad 1', 'Descripción de la Actividad 1');
 insert into actividad (obligatoria, nombre, descripcion) values (false, 'Actividad 2', 'Descripción de la Actividad 2');
+insert into actividad (obligatoria, nombre, descripcion) values (true, 'Actividad 3', 'Descripción de la Actividad 3');
+insert into actividad (obligatoria, nombre, descripcion) values (false, 'Actividad 4', 'Descripción de la Actividad 4');
+insert into actividad (obligatoria, nombre, descripcion) values (true, 'Actividad 5', 'Descripción de la Actividad 5');
+insert into actividad (obligatoria, nombre, descripcion) values (false, 'Actividad 6', 'Descripción de la Actividad 6');
 insert into enmarca (FK_PLAN, FK_ACTIVIDAD, fecha) values (1, 1, '2024-01-24');
 insert into enmarca (FK_PLAN, FK_ACTIVIDAD, fecha) values (1, 2, '2024-01-25');
 

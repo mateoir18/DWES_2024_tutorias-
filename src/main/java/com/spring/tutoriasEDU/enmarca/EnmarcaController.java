@@ -55,16 +55,19 @@ public class EnmarcaController {
 
 	@GetMapping("/enmarca/add")
 	public ModelAndView addEnmarcacion() {
-
 		ModelAndView model = new ModelAndView();
 		model.setViewName("formEnmarca");
 		model.addObject("enmarcacion", new Enmarca());
-
 		model.addObject("planes", planDao.findAll());
 		model.addObject("actividades", actividadDao.findAll());
+		
+		// Añade enmarcaciones al modelo
+		List<Enmarca> enmarcaciones = (List<Enmarca>) enmarcaDao.findAll();
+		model.addObject("enmarcaciones", enmarcaciones);
 
 		return model;
 	}
+
 
 	@GetMapping("/enmarca/edit/{id}")
 	public ModelAndView editEnmarca(@PathVariable long id) {
@@ -99,15 +102,26 @@ public class EnmarcaController {
 	@PostMapping("/enmarca/save")
 	public ModelAndView formEnmarca(@ModelAttribute Enmarca enmarcacion) {
 		
-		Actividad actividad = enmarcacion.getActividad();
-		enmarcacion.setActividad(actividad);
-		
-		enmarcaDao.save(enmarcacion);
+		// Buscar enmarcaciones existentes con el mismo plan y actividad
+		List<Enmarca> enmarcacionesExistentes = enmarcaDao.findByPlanAndActividad(enmarcacion.getPlan(), enmarcacion.getActividad());
 		
 		ModelAndView model = new ModelAndView();
-		model.setViewName("redirect:/enmarca");
+		
+		// Si ya existe una enmarcación con el mismo plan y actividad, añadir un mensaje de error al modelo
+		if (!enmarcacionesExistentes.isEmpty()) {
+			model.setViewName("redirect:/enmarca");
+		} else {
+			// Si no existe una enmarcación con el mismo plan y actividad, guardar la nueva enmarcación
+			Actividad actividad = enmarcacion.getActividad();
+			enmarcacion.setActividad(actividad);
+			
+			enmarcaDao.save(enmarcacion);
+			
+			model.setViewName("redirect:/enmarca");
+		}
 
 		return model;
 	}
+
 
 }

@@ -20,6 +20,7 @@
 					  <th scope="col">#</th>
 					  <th scope="col">Actividad</th>
 					  <th scope="col">Plan</th>
+					  <th scope="col">Fecha</th>
 					  <th scope="col">Eliminar</th>
 					</tr>
 				  </thead>
@@ -28,6 +29,7 @@
 					  <th scope="row" th:text="${enmarca.id}">ID</th>
 					  <td th:text="${enmarca.actividad.nombre}">Actividad</td>
 					  <td th:text="${enmarca.plan.nombre}">Plan</td>
+					  <td th:text="${enmarca.fecha}">Fecha</td>
 					  <td><a class="badge badge-pill badge-danger" th:href="@{~/enmarca/del/{id}(id = ${enmarca.id})}">eliminar</a></td>
 					</tr>
 				  </tbody>
